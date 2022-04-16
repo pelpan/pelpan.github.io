@@ -1,0 +1,118 @@
+I"%<h1 id="dp-动态规划问题">DP 动态规划问题</h1>
+
+<p>动态规划流程： <strong>暴力的递归解法 -&gt; 带备忘录的递归解法 -&gt; 迭代的动态规划解法</strong></p>
+
+<p>思考流程：<strong>找到状态和选择 -&gt; 明确dp数组/函数的定义 -&gt; 寻找状态之间的关系</strong></p>
+
+<h3 id="斐波那契数列优化">斐波那契数列优化</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://pele-images.oss-cn-hangzhou.aliyuncs.com/images/202203261227664.png" alt="image-20220326122749664" style="zoom:50%;" /></p>
+
+<p>\(时间复杂度 :O(2^n)\)
+<strong>带备忘录的递归解法</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">fibNote</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mem</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">note</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 备忘录📕</span>
+<span class="kt">int</span> <span class="nf">note</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">mem</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">mem</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">mem</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+	<span class="n">mem</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">note</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">note</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">mem</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>时间复杂度$O(n)$</p>
+
+<p><strong>DP数组的迭代解法</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fb</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">fb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">fb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">fb</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">fb</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">fb</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p><strong>状态转移方程</strong>
+\(\begin{equation}
+f(n)=\left\{
+\begin{array}{cl}
+1&amp;n=1,2\\
+f(n-1)+f(n-2)&amp;n&gt;2 \\
+\end{array} \right.
+\end{equation}\)</p>
+
+<p><strong>Fibonacci再优化</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">pre</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">sum</span> <span class="o">=</span> <span class="n">pre</span> <span class="o">+</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="最长公共子序列">最长公共子序列</h2>
+
+<p>LCS - Longest Common Subsequence</p>
+
+<blockquote>
+  <p>input: str1 = “abcde”, str2 = “ace”</p>
+
+  <p>output: 3</p>
+</blockquote>
+
+<ol>
+  <li>
+    <p>Step 1 明确dp数组的含义</p>
+
+    <p>$dp[i][j]$代表$s_1[1…i]$和$s_2[1…j]$的公共子序列</p>
+  </li>
+  <li>
+    <p>定义 base case 起始</p>
+
+    <p>$dp[0][…]\&amp;dp[…][0]=0$</p>
+  </li>
+  <li>
+    <p>状态转移方程</p>
+
+    <p>用两个指针 i 和 j 从后往前遍历 s1 和 s2 ，如果 s1[i]==s2[j] ，那 么这个字符<strong>一定在</strong> <strong>lcs</strong> <strong>中</strong>;否则的话， s1[i] 和 s2[j] 这两个字符<strong>至少 有一个不在</strong> <strong>lcs</strong> <strong>中</strong>，需要丢弃一个。
+\(\begin{equation}
+c(n)=\left\{
+\begin{array}{cl}
+0 &amp; i&gt;0;j=0\\
+c[i-1][j-1]+1&amp;i,j&gt;0;x_i=y_i\\
+max\{c[i][j-1],c[i-1][j]\}&amp;i,j&gt;0;x_i!=y_i
+\end{array} \right.
+\end{equation}\)</p>
+  </li>
+</ol>
+
+:ET
