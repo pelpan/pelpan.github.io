@@ -1,7 +1,7 @@
 # Site settings
 title: 無限進步
 SEOTitle: Pele's Blog | PE LOG
-header-img: img/Shenzhou-V.jpg
+header-img: img/ShenzhouV_.webp
 email: pqq12138@outlook.com
 description: "無限進步"
 keyword: "Pele,Java,Swift, Apple Fan, Front-End, Nokia"
@@ -15,7 +15,7 @@ sidebar-about-description: "🏎️ Keep pushing..."
 sidebar-avatar: /img/Pele-compresswd.png     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
-
+ 
 # SNS settings
 RSS: false
 # weibo_username:     qiubaiying
