@@ -217,20 +217,18 @@ npm run build
 
 ### 安装 React
 
-由于CCFK组件库只支持React 17, 所以这里我们不能直接安装最新的React 18
-
-运行以下命令安装React v17.0.2
+运行以下命令安装React
 
 ```bash
-npm install react@17.0.2 react-dom@17.0.2
+npm install react react-dom
 ```
 
 安装成功后`package.json`中会多出项目依赖
 
 ```diff
 +  "dependencies": {
-+    "react": "^17.0.2",
-+    "react-dom": "^17.0.2"
++    "react": "^18.2.0",
++    "react-dom": "^18.2.0"
 +  }
 ```
 
@@ -430,7 +428,7 @@ module.exports = merge(common, {
 
 如果每次都生成一样的JS文件, 浏览器可能不会发现网页已经更新, 从而直接读取本地的缓存, 所以需要通过修改output中的属性使每次打包后生成不同的JS文件名
 
-只需在`webpack.common.config.js`中添加这段代码
+只需在`webpack.prod.config.js`中添加这段代码
 
 ```diff
  module.exports = merge(common, {
