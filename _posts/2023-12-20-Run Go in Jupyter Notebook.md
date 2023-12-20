@@ -4,7 +4,7 @@ title:      Run Go in Jupyter Notebook
 subtitle:   Jupyer Notebook is a effective tool for newbies to learn and practice a brand new programming language.
 date:       2023-12-20
 author:     Pele
-header-img: img/jupyter.jpeg
+header-img: img/jupyter_dark.webp
 catalog: true
 tags:
     - Go
@@ -47,7 +47,11 @@ and you should see the following:
 `2017/09/20 10:33:12 Need a command line argument specifying the connection file.`
 
 ## 3. Run Jupyter Notebook
-
+- Start the jupyter notebook serve
 ```bash
 jupyter notebook
 ```
+- mSelect `Go` from the kernel menu.
+
+- Have fun!
+
